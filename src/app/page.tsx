@@ -1,4 +1,5 @@
 import { PRODUCTS_CATEGORY_DATA } from "tp-kit/data";
+const categories = PRODUCTS_CATEGORY_DATA;
 import {
     BreadCrumbs,
     Button,
@@ -8,7 +9,7 @@ import {
     ProductGridLayout,
     SectionContainer
 } from "tp-kit/components";
-const categories = PRODUCTS_CATEGORY_DATA;
+import ProductFilters from "@/components/product-filters";
 export default function Home() {
   return (
       <main>
@@ -22,36 +23,41 @@ export default function Home() {
               Starbuucks
           </Heading>
 
-          <div className="flex min-h-screen flex-col justify-between p-10">
-              
-              <BreadCrumbs items={[
-                  {
-                      "label": "Accueil",
-                      "url": "#"
-                  }
-              ]}></BreadCrumbs>
+          <div className={"flex flex-row"}>
+              <div>
+                  <ProductFilters categories={categories} />
+              </div>
+              <div className="flex min-h-screen flex-col justify-between p-10">
 
-              {categories.map(category =>
-                  <SectionContainer key={category.id}>
-                      <Heading
-                          as="h1"
-                          size="md"
-                          variant="brand"
-                          weight="bold"
-                          className={"p-5"}
-                      >
-                          {category.name} ({category.products.length})
-                      </Heading>
+                  <BreadCrumbs items={[
+                      {
+                          "label": "Accueil",
+                          "url": "#"
+                      }
+                  ]}></BreadCrumbs>
 
-                      <ProductGridLayout key={category.id} products={category.products} >
-                          {product =>
-                              <ProductCardLayout
-                                  key={product.id}
-                                  button={<Button fullWidth variant="ghost">Ajouter au panier</Button>}
-                                  product={product}
-                              />}
-                      </ProductGridLayout>
-                  </SectionContainer>)}
+                  {categories.map(category =>
+                      <SectionContainer key={category.id}>
+                          <Heading
+                              as="h1"
+                              size="md"
+                              variant="brand"
+                              weight="bold"
+                              className={"p-5"}
+                          >
+                              {category.name} ({category.products.length})
+                          </Heading>
+
+                          <ProductGridLayout key={category.id} products={category.products} >
+                              {product =>
+                                  <ProductCardLayout
+                                      key={product.id}
+                                      button={<Button fullWidth variant="ghost">Ajouter au panier</Button>}
+                                      product={product}
+                                  />}
+                          </ProductGridLayout>
+                      </SectionContainer>)}
+              </div>
           </div>
 
           <Footer />
