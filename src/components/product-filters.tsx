@@ -47,7 +47,11 @@ export default function ProductFilters({categories, onChange}: CategoriesToFilte
                     </Checkbox.Group>
                 )
             })}
-            <Button type={"submit"} variant="primary" className={"min-w-fit text-black"}>Filtrer</Button>
+            <div className={"p-4"}>
+                <Button type={"submit"}
+                    variant="primary"
+                    className={"w-full"}>Filtrer</Button>
+            </div>
         </form>
     )
 }
