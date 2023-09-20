@@ -1,10 +1,9 @@
-import { PRODUCTS_CATEGORY_DATA } from "tp-kit/data";
-import {
-    Footer,
-    Heading
-} from "tp-kit/components";
+import {Footer, Heading} from "tp-kit/components";
 import ProductList from "@/components/productList";
 import Image from "next/image";
+
+import { PRODUCTS_CATEGORY_DATA } from "tp-kit/data";
+const categories = PRODUCTS_CATEGORY_DATA;
 
 export default function Home() {
   return (
@@ -22,7 +21,7 @@ export default function Home() {
               <h1 className={"p-4"}>Starbuucks</h1>
           </Heading>
 
-          <ProductList />
+          <ProductList categoriesToDisplay={categories} showFilters={true} />
 
 
           <Footer />
