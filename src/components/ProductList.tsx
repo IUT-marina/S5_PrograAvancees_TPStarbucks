@@ -3,7 +3,7 @@
 import { PRODUCTS_CATEGORY_DATA } from "tp-kit/data";
 import {filterProducts} from "@/utils/filter-products";
 import {BreadCrumbs, Button, ProductCardLayout, ProductGridLayout, SectionContainer} from "tp-kit/components";
-import ProductFilters from "@/components/product-filters";
+import ProductFilters from "@/components/Product-filters";
 import {useMemo, useState} from "react";
 import {ProductFiltersResult} from "@/types";
 const categories = PRODUCTS_CATEGORY_DATA;
@@ -19,7 +19,7 @@ export default function ProductList() {
                 <ProductFilters categories={categoriesToRender} onChange={setFilters} />
             </SectionContainer>
 
-            <SectionContainer className="flex min-h-screen flex-col justify-between p-10">
+            <SectionContainer className="flex flex-1 min-h-screen flex-col justify-between p-5">
 
                 <BreadCrumbs items={[
                     {
