@@ -24,10 +24,10 @@ export default function Home() {
           </Heading>
 
           <div className={"flex flex-row"}>
-              <div>
+              <SectionContainer>
                   <ProductFilters categories={categories} />
-              </div>
-              <div className="flex min-h-screen flex-col justify-between p-10">
+              </SectionContainer>
+              <SectionContainer className="flex min-h-screen flex-col justify-between p-10">
 
                   <BreadCrumbs items={[
                       {
@@ -38,15 +38,9 @@ export default function Home() {
 
                   {categories.map(category =>
                       <SectionContainer key={category.id}>
-                          <Heading
-                              as="h1"
-                              size="md"
-                              variant="brand"
-                              weight="bold"
-                              className={"p-5"}
-                          >
+                          <h1 className={"p-5 font-bold"}>
                               {category.name} ({category.products.length})
-                          </Heading>
+                          </h1>
 
                           <ProductGridLayout key={category.id} products={category.products} >
                               {product =>
@@ -57,7 +51,7 @@ export default function Home() {
                                   />}
                           </ProductGridLayout>
                       </SectionContainer>)}
-              </div>
+              </SectionContainer>
           </div>
 
           <Footer />
