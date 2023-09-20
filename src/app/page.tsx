@@ -1,15 +1,10 @@
 import { PRODUCTS_CATEGORY_DATA } from "tp-kit/data";
-const categories = PRODUCTS_CATEGORY_DATA;
 import {
-    BreadCrumbs,
-    Button,
     Footer,
-    Heading,
-    ProductCardLayout,
-    ProductGridLayout,
-    SectionContainer
+    Heading
 } from "tp-kit/components";
-import ProductFilters from "@/components/product-filters";
+import ProductList from "@/components/ProductList";
+
 export default function Home() {
   return (
       <main>
@@ -23,36 +18,8 @@ export default function Home() {
               Starbuucks
           </Heading>
 
-          <div className={"flex flex-row"}>
-              <SectionContainer>
-                  <ProductFilters categories={categories} />
-              </SectionContainer>
-              <SectionContainer className="flex min-h-screen flex-col justify-between p-10">
+          <ProductList />
 
-                  <BreadCrumbs items={[
-                      {
-                          "label": "Accueil",
-                          "url": "#"
-                      }
-                  ]}></BreadCrumbs>
-
-                  {categories.map(category =>
-                      <SectionContainer key={category.id}>
-                          <h1 className={"p-5 font-bold"}>
-                              {category.name} ({category.products.length})
-                          </h1>
-
-                          <ProductGridLayout key={category.id} products={category.products} >
-                              {product =>
-                                  <ProductCardLayout
-                                      key={product.id}
-                                      button={<Button fullWidth variant="ghost">Ajouter au panier</Button>}
-                                      product={product}
-                                  />}
-                          </ProductGridLayout>
-                      </SectionContainer>)}
-              </SectionContainer>
-          </div>
 
           <Footer />
     </main>

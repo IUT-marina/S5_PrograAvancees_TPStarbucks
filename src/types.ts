@@ -1,4 +1,4 @@
-export interface ProductFilterResult {
+export interface ProductFiltersResult {
     categoriesSlugs: string[],
     search: string
 }
