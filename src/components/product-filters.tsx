@@ -13,6 +13,8 @@ interface CategoriesToFilter {
     categories: ProductsCategoryData[]
     onChange? : (filters: ProductFiltersResult) => void
 }
+
+// SECTION FILTRES AFFICHEE
 export default function ProductFilters({categories, onChange}: CategoriesToFilter) {
 
     const form = useForm({

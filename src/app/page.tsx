@@ -3,7 +3,8 @@ import {
     Footer,
     Heading
 } from "tp-kit/components";
-import ProductList from "@/components/ProductList";
+import ProductList from "@/components/productList";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -11,11 +12,14 @@ export default function Home() {
           <Heading
               as="h1"
               size="lg"
-              variant="brand"
               weight="bold"
-              className={"flex flex-col items-center justify-between p-24"}
+              className={"bg-vertsb text-white flex flex-col items-center justify-between text-6xl p-14"}
           >
-              Starbuucks
+              <Image src="/starbucks-logo-opacity-coffee-light.svg"
+                     width={100} height={100}
+                     alt={'logo starbucks'}
+              />
+              <h1 className={"p-4"}>Starbuucks</h1>
           </Heading>
 
           <ProductList />

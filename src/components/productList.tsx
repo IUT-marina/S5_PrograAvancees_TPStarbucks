@@ -3,11 +3,15 @@
 import { PRODUCTS_CATEGORY_DATA } from "tp-kit/data";
 import {filterProducts} from "@/utils/filter-products";
 import {BreadCrumbs, Button, ProductCardLayout, ProductGridLayout, SectionContainer} from "tp-kit/components";
-import ProductFilters from "@/components/Product-filters";
+import ProductFilters from "@/components/product-filters";
 import {useMemo, useState} from "react";
 import {ProductFiltersResult} from "@/types";
 const categories = PRODUCTS_CATEGORY_DATA;
 
+
+// Ptit Tips pour Marina : Affichage du contenu de la page :
+// - La partie filtre
+// - La partie listes des produits
 export default function ProductList() {
     const [filters, setFilters] = useState(undefined as ProductFiltersResult | undefined);
     let categoriesToRender = useMemo(() =>
@@ -16,7 +20,7 @@ export default function ProductList() {
     return (
         <div className={"flex flex-row"} >
             <SectionContainer>
-                <ProductFilters categories={categoriesToRender} onChange={setFilters} />
+                <ProductFilters categories={categories} onChange={setFilters} />
             </SectionContainer>
 
             <SectionContainer className="flex flex-1 min-h-screen flex-col justify-between p-5">
