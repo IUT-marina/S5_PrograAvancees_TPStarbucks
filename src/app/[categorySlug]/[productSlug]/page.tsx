@@ -1,5 +1,3 @@
-"use client";
-
 import {BreadCrumbs, Button, Footer, Heading, ProductRating, SectionContainer} from "tp-kit/components";
 import Image from "next/image";
 import ProductList from "@/components/productList";
@@ -27,6 +25,22 @@ export type NextPageProps<T = Record<string, string>> = {
      */
     searchParams: { [key: string]: string | string[] | undefined }
 };
+
+
+export async function generateMetadata({params} : NextPageProps<{productSlug:string, categorySlug: string}>) {
+
+    const category = categories.find(cat => cat.slug === params.categorySlug);
+    const product = category?.products.find(prod => prod.slug === params.productSlug);
+
+    if(!category || !product) notFound();
+
+    return {
+        title: params.productSlug,
+        description: product.desc ? ("Succombez pour notre " + product.name + " et commandez-le sur notre site !") : product.desc,
+    }
+}
+
+
 export default function Page({params} : NextPageProps<{productSlug:string, categorySlug: string}>) {
 
     const category = categories.find(cat => cat.slug === params.categorySlug);

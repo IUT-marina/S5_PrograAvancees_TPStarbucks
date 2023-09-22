@@ -3,7 +3,12 @@ import ProductList from "@/components/productList";
 import Image from "next/image";
 
 import { PRODUCTS_CATEGORY_DATA } from "tp-kit/data";
+import {Metadata} from "next";
 const categories = PRODUCTS_CATEGORY_DATA;
+
+export const metadata: Metadata = {
+    description: "Commandez de délicieuses boissons préparées avec sois par nos baristas"
+}
 
 export default function Home() {
   return (
