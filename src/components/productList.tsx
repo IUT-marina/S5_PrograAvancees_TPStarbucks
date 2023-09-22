@@ -2,7 +2,7 @@
 
 import {filterProducts} from "@/utils/filter-products";
 import {BreadCrumbs, Button, ProductCardLayout, ProductGridLayout, SectionContainer} from "tp-kit/components";
-import ProductFilters from "@/components/product-filters";
+import ProductFilters from "@/components/productFilters";
 import {useMemo, useState} from "react";
 import {ProductFiltersResult} from "@/types";
 import Link from "next/link";

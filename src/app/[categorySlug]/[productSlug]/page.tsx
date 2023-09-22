@@ -9,13 +9,8 @@ import {ProductData, ProductsCategoryData} from "tp-kit/types";
 import {undefined} from "zod";
 import {notFound} from "next/navigation";
 import {Stars} from "tp-kit/components/products/product-rating.stories";
-/*const product = {
-    ...PRODUCTS_CATEGORY_DATA[0].products[0],
-    category: {
-        ...PRODUCTS_CATEGORY_DATA[0],
-        products: PRODUCTS_CATEGORY_DATA[0].products.slice(1)
-    }
-};*/
+import ProductAttributesTable from "@/components/productAttributesTable";
+import {ProductAttribute} from "@/types";
 
 const categories = PRODUCTS_CATEGORY_DATA;
 
@@ -38,6 +33,14 @@ export default function Page({params} : NextPageProps<{productSlug:string, categ
     const product = category?.products.find(prod => prod.slug === params.productSlug);
 
     if(!category || !product) notFound();
+
+    const attributes: ProductAttribute[] = [
+        { label: "Intensité", rating: 3 },
+        { label: "Volupté", rating: 2 },
+        { label: "Amertume", rating: 1 },
+        { label: "Onctuosité", rating: 4 },
+        { label: "Instagramabilité", rating: 5 },
+    ];
 
     return (
         <main>
@@ -102,6 +105,7 @@ export default function Page({params} : NextPageProps<{productSlug:string, categ
                                 Ajouter au panier
                             </Button>
                         </div>
+                        <ProductAttributesTable attributes={attributes}></ProductAttributesTable>
                     </div>
                 </div>
             </SectionContainer>

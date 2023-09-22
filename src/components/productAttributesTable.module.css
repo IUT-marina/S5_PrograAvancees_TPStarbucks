@@ -1,0 +1,8 @@
+.attributesTable {
+    @apply
+    border-b-2
+    flex
+    justify-between
+    py-3;
+}
+
