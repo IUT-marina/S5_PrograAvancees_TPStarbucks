@@ -1,4 +1,4 @@
-import {Footer, Heading} from "tp-kit/components";
+import {BreadCrumbs, Footer, Heading} from "tp-kit/components";
 import ProductList from "@/components/productList";
 import Image from "next/image";
 
@@ -12,17 +12,22 @@ export default function Home() {
               as="h1"
               size="lg"
               weight="bold"
-              className={"bg-vertsb text-white flex flex-col items-center justify-between text-6xl p-14"}
+              className={"bg-vertsb text-white flex flex-col items-center justify-between text-6xl p-12"}
           >
               <Image src="/starbucks-logo-opacity-coffee-light.svg"
                      width={100} height={100}
                      alt={'logo starbucks'}
               />
-              <h1 className={"p-4"}>Starbuucks</h1>
+              <h1 className={"p-2"}>Starbuucks</h1>
           </Heading>
 
+          <BreadCrumbs className={"p-10 px-40"} items={[
+              {
+                  "label": "Accueil",
+                  "url": "/"
+              }
+          ]}></BreadCrumbs>
           <ProductList categoriesToDisplay={categories} showFilters={true} />
-
 
           <Footer />
     </main>

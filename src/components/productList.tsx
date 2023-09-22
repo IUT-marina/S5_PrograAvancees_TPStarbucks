@@ -10,8 +10,8 @@ import {ProductsCategoryData} from "tp-kit/types";
 
 
 // Ptit Tips pour Marina : Affichage du contenu de la page :
-// - La partie filtre
-// - La partie listes des produits (si affichage des filtres demandé)
+// - La partie filtre (si boolean à True)
+// - La partie listes des produits
 
 interface ProductListProps {
     showFilters?: boolean
@@ -34,19 +34,12 @@ export default function ProductList({showFilters, categoriesToDisplay}: ProductL
 
             <SectionContainer className="flex flex-1 min-h-screen flex-col justify-between p-5">
 
-                <BreadCrumbs items={[
-                    {
-                        "label": "Accueil",
-                        "url": "#"
-                    }
-                ]}></BreadCrumbs>
-
                 {categoriesToRender.map(category =>
                     <SectionContainer key={category.id}>
                         <Link href={category.slug}>
-                                <h1 className={"p-5 font-bold"}>
-                                {category.name} ({category.products.length})
-                            </h1>
+                                <h1 className={"p-5 font-bold link"}>
+                                    {category.name} ({category.products.length})
+                                </h1>
                         </Link>
 
                         <ProductGridLayout key={category.id} products={category.products} >

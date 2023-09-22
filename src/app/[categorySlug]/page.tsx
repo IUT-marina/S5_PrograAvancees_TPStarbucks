@@ -1,6 +1,6 @@
 "use client";
 
-import {Footer, Heading} from "tp-kit/components";
+import {BreadCrumbs, Footer, Heading} from "tp-kit/components";
 import Image from "next/image";
 import ProductList from "@/components/productList";
 
@@ -29,17 +29,26 @@ export default function Page({params} : NextPageProps<{categorySlug:string}>) {
                 as="h1"
                 size="lg"
                 weight="bold"
-                className={"bg-vertsb text-white flex flex-col items-center justify-between text-6xl p-14"}
+                className={"bg-vertsb text-white flex flex-col items-center justify-between text-6xl p-12"}
             >
                 <Image src="/starbucks-logo-opacity-coffee-light.svg"
                        width={100} height={100}
                        alt={'logo starbucks'}
                 />
-                <div className={"p-4"}>Starbuucks</div>
+                <div className={"p-2"}>Starbuucks</div>
             </Heading>
 
+            <BreadCrumbs className={"p-10 px-40"} items={[
+                {
+                    "label": "Accueil",
+                    "url": "./"
+                },
+                {
+                    "label": category[0].name,
+                    "url": "#"
+                }
+            ]}></BreadCrumbs>
             <ProductList categoriesToDisplay={category} />
-
 
             <Footer />
         </main>
