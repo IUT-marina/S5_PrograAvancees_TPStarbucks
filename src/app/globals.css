@@ -5,6 +5,13 @@
 @layer components {
 
     .link {
-        @apply transition transform ease-in-out delay-150 hover:text-green duration-200 active:text-vertsb;
+        @apply
+        transition
+        transform
+        ease-in-out
+        delay-150
+        hover:text-green
+        duration-200
+        active:text-vertsb;
     }
 }

@@ -10,15 +10,17 @@ import {ProductsCategoryData} from "tp-kit/types";
 
 
 // Ptit Tips pour Marina : Affichage du contenu de la page :
-// - La partie filtre (si boolean à True)
+// - La partie filtre (si boolean à True) : Product filters
 // - La partie listes des produits
 
 interface ProductListProps {
     showFilters?: boolean
+    showCategoryName?: boolean
     categoriesToDisplay: ProductsCategoryData[]
 }
-export default function ProductList({showFilters, categoriesToDisplay}: ProductListProps) {
+export default function ProductList({showFilters, showCategoryName, categoriesToDisplay}: ProductListProps) {
     showFilters = showFilters === undefined ? false : showFilters;
+    showCategoryName = showCategoryName === undefined ? true : showCategoryName;
 
     const [filters, setFilters] = useState(undefined as ProductFiltersResult | undefined);
     let categoriesToRender = useMemo(() =>
@@ -36,11 +38,16 @@ export default function ProductList({showFilters, categoriesToDisplay}: ProductL
 
                 {categoriesToRender.map(category =>
                     <SectionContainer key={category.id}>
-                        <Link href={category.slug}>
-                                <h1 className={"p-5 font-bold link"}>
+                        { showCategoryName &&
+                            <Link href={category.slug}>
+                                <h2 className={"p-5 font-bold link"}>
                                     {category.name} ({category.products.length})
-                                </h1>
-                        </Link>
+                                </h2>
+                            </Link>
+                        }
+                        { !showCategoryName &&
+                            <p className={"prose lg:prose-xl font-bold"}>Vous aimerez aussi...</p>
+                        }
 
                         <ProductGridLayout key={category.id} products={category.products} >
                             {product =>

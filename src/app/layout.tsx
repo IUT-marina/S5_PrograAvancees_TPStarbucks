@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-    <body><Providers font={lexend}>{children}</Providers></body>
+    <body className={lexend.className}><Providers font={lexend}>{children}</Providers></body>
     </html>
   )
 }
