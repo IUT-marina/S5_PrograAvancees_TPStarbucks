@@ -36,7 +36,8 @@ const config: Config = {
           900: "#272321",
           950: "#181614",
         },
-        vertsb: "#002F16"
+        vertsb: "#002F16",
+        cream: "#FCF9F4"
       },
     },
   },

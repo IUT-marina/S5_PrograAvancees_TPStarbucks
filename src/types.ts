@@ -1,6 +1,6 @@
 export interface ProductFiltersResult {
     categoriesSlugs: string[],
-    search: string
+    search?: string
 }
 
 export interface ProductAttribute {

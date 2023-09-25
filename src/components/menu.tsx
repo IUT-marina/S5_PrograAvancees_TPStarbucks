@@ -1,10 +1,41 @@
-import Image from "next/image";
-import {Button, Heading, MenuBar} from "tp-kit/components";
+"use client";
+
+import {Button, MenuBar} from "tp-kit/components";
+import {ShoppingCartSimple, X} from "@phosphor-icons/react";
+import {Indicator} from "@mantine/core";
+import {Popover} from "@headlessui/react";
+const {stGreen} = require('tp-kit/tailwind/colors')
+const {gray} = require('tailwindcss/colors');
 
 export default function Menu() {
     return (
         <MenuBar leading={"Starbuucks"}
-                 trailing={<Button>Panier</Button>}
+                 trailing={
+            <div className={"flex justify-end items-center"}>
+                <Popover>
+                    {({open}) => (
+                        <>
+                            <Popover.Button>
+                                <Indicator size={20} label="0" color={stGreen.DEFAULT} >
+                                    {!open &&
+                                        <ShoppingCartSimple size={32} />
+                                    }
+                                    {open &&
+                                        <X size={32} />
+
+                                    }
+                                </Indicator>
+                            </Popover.Button>
+
+                            <Popover.Panel>
+                                <div className={"absolute w-2/6 right-1 top-20 bg-white rounded-lg shadow-2xl flex justify-center items-center p-24"}>
+                                    Votre panier est vide.
+                                </div>
+                            </Popover.Panel>
+                        </>
+                    )}
+                </Popover>
+            </div>}
         />
     )
 }

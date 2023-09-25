@@ -32,7 +32,7 @@ export default function Page({params} : NextPageProps<{categorySlug:string}>) {
 
     return (
         <main>
-            <BreadCrumbs className={"p-10 px-40"} items={[
+            <BreadCrumbs className={"p-10 px-40 bg-white"} items={[
                 {
                     "label": "Accueil",
                     "url": "./"
