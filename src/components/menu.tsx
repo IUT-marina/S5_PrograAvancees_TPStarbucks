@@ -1,11 +1,10 @@
 "use client";
 
-import {Button, MenuBar} from "tp-kit/components";
+import {MenuBar} from "tp-kit/components";
 import {ShoppingCartSimple, X} from "@phosphor-icons/react";
 import {Indicator} from "@mantine/core";
 import {Popover} from "@headlessui/react";
 const {stGreen} = require('tp-kit/tailwind/colors')
-const {gray} = require('tailwindcss/colors');
 
 export default function Menu() {
     return (
