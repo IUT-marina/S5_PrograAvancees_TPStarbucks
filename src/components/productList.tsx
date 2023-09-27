@@ -8,6 +8,7 @@ import {ProductFiltersResult} from "@/types";
 import Link from "next/link";
 import {ProductsCategoryData} from "tp-kit/types";
 import {addLine} from "@/hooks/use-cart";
+import AddToCartButton from "@/components/addToCartButton";
 
 
 // Ptit Tips pour Marina : Affichage du contenu de la page :
@@ -28,17 +29,17 @@ export default function ProductList({showFilters, showCategoryName, categoriesTo
         filterProducts(categoriesToDisplay, filters), [categoriesToDisplay, filters]);
 
     return (
-        <div className={"flex flex-row"} >
+        <div className={"flex flex-row bg-grayPicture"} >
             { showFilters &&
-                <SectionContainer>
+                <SectionContainer className={"bg-grayPicture"}>
                     <ProductFilters categories={categoriesToDisplay} onChange={setFilters} />
                 </SectionContainer>
             }
 
-            <SectionContainer className="flex flex-1 min-h-screen flex-col justify-between p-5">
+            <SectionContainer className="flex flex-1 bg-grayPicture min-h-screen flex-col justify-between p-5">
 
                 {categoriesToRender.map(category =>
-                    <SectionContainer key={category.id}>
+                    <SectionContainer key={category.id} className={"bg-grayPicture"}>
                         { showCategoryName &&
                             <Link href={category.slug}>
                                 <h2 className={"p-5 font-bold link"}>
@@ -54,9 +55,9 @@ export default function ProductList({showFilters, showCategoryName, categoriesTo
                             {product =>
                                 <ProductCardLayout
                                     key={product.id}
-                                    button={<Button fullWidth variant="ghost" onClick={() => addLine(product)}>
-                                            Ajouter au panier
-                                            </Button>}
+                                    button={<div className={"flex justify-center m-auto"}>
+                                                <AddToCartButton product={product} />
+                                            </div>}
                                     product={product}
                                 />}
                         </ProductGridLayout>

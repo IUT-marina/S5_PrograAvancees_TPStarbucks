@@ -4,8 +4,6 @@ import {Button, ProductCartLine, ProductImage} from "tp-kit/components";
 import {clearCart, computeCartTotal, removeLine, updateLine, useCart} from "@/hooks/use-cart";
 import Image from "next/image";
 
-/* w-full space-y-8 bg-white p-5 rounded-lg shadow-2xl flex flex-col justify-between */
-/* absolute w-2/6 right-1 top-20 bg-white rounded-lg shadow-2xl flex  justify-center items-center p-24 */
 export default function Cart() {
 
     const lines = useCart(state => state.lines)
@@ -39,7 +37,7 @@ export default function Cart() {
                         <span className={"font-bold"}>Total</span>
                         <span className={"font-bold"}>{(computeCartTotal(lines)).toFixed(2)}€</span>
                     </div>
-                    <Button className={"border-none bg-green"} fullWidth>Commander</Button>
+                    <Button className={"border-none bg-stGreen"} fullWidth>Commander</Button>
                 </div>
 
         </div>

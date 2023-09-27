@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
       <main>
-          <BreadCrumbs  className={"p-10 px-40 bg-cream"} items={[
+          <BreadCrumbs  className={"p-10 px-40 bg-grayPicture"} items={[
               {
                   "label": "Accueil",
                   "url": "/"

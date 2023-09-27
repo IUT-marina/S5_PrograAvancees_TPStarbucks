@@ -20,10 +20,9 @@ export default function AddToCartButton({product}: ProductProps) {
 
     return (
         <Button
-            variant={"ghost"}
             fullWidth
             onClick={addingToCart}
-            className={"flex justify-center"}
+            className={"flex justify-center bg-stGreen"}
         >
             {waiting &&
                 <Loader color="gray" variant="dots" />

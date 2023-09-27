@@ -9,6 +9,7 @@ import {notFound} from "next/navigation";
 import {Stars} from "tp-kit/components/products/product-rating.stories";
 import ProductAttributesTable from "@/components/productAttributesTable";
 import {ProductAttribute} from "@/types";
+import AddToCartButton from "@/components/addToCartButton";
 
 const categories = PRODUCTS_CATEGORY_DATA;
 
@@ -103,9 +104,9 @@ export default function Page({params} : NextPageProps<{productSlug:string, categ
                             <span className={"font-bold"}>
                                 {product.price} €
                             </span>
-                            <Button type={"submit"} variant="primary">
-                                Ajouter au panier
-                            </Button>
+                            <div>
+                                <AddToCartButton product={product} />
+                            </div>
                         </div>
                         <ProductAttributesTable attributes={attributes}></ProductAttributesTable>
                     </div>

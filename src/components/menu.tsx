@@ -10,7 +10,7 @@ const {stGreen} = require('tp-kit/tailwind/colors')
 
 export default function Menu() {
     return (
-        <MenuBar leading={"Starbuucks"}
+        <MenuBar
                  trailing={
             <div className={"flex justify-end items-center"}>
                 <Popover>
