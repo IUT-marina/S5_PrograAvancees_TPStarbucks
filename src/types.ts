@@ -16,5 +16,6 @@ export interface ProductLineData {
 }
 
 export interface CartData {
-    lines: ProductLineData[]
+    lines: ProductLineData[],
+    count : number
 }

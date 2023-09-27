@@ -7,7 +7,8 @@ import { create } from 'zustand'
 
 export const useCart = create<CartData>(function() {
     return {
-        lines: []
+        lines: [],
+        count: 0
     }
 })
 
@@ -26,7 +27,7 @@ export function addLine(product: ProductData) {
             const newProduct: ProductLineData = {product: product, quantity: 1}
             panier.lines.push(newProduct);
         }
-        return {...panier, lines:[...panier.lines]};
+        return {...panier, lines:[...panier.lines], count: (panier.lines.length)};
     })
 }
 
@@ -52,7 +53,7 @@ export function updateLine(line: ProductLineData) {
  */
 export function removeLine(productId: number) {
     useCart.setState((panier: CartData) => {
-        return {...panier, lines: panier.lines.filter(prdt => prdt.product.id != productId)};
+        return {...panier, lines: panier.lines.filter(prdt => prdt.product.id != productId), count: (panier.lines.length - 1)};
     })
 }
 
