@@ -4,11 +4,10 @@ import { PRODUCTS_CATEGORY_DATA } from "tp-kit/data";
 import {Button, ProductCardLayout, ProductCartLine, SectionContainer} from "tp-kit/components";
 import {useCart, addLine, removeLine, updateLine, clearCart, computeCartTotal} from "@/hooks/use-cart";
 import Cart from "@/components/cart";
+import CartCounter from "@/components/cartCounter";
 const products = PRODUCTS_CATEGORY_DATA[0].products.slice(0, 3);
 
 export default function DevCartPage() {
-
-    //const lines = useCart(state => state.lines)
 
     return (
         <SectionContainer
@@ -28,7 +27,12 @@ export default function DevCartPage() {
             {/* /Produits */}
 
             {/* Panier */}
+            <div className={"absolute top-100 right-100"}>
+                Nombre de lignes :
+                <CartCounter></CartCounter>
+            </div>
             <Cart />
+
             {/* /Panier */}
         </SectionContainer>
     );
