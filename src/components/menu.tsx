@@ -5,6 +5,7 @@ import {ShoppingCartSimple, X} from "@phosphor-icons/react";
 import {Indicator} from "@mantine/core";
 import {Popover} from "@headlessui/react";
 import Cart from "@/components/cart";
+import CartCounter from "@/components/cartCounter";
 const {stGreen} = require('tp-kit/tailwind/colors')
 
 export default function Menu() {
@@ -16,7 +17,7 @@ export default function Menu() {
                     {({open}) => (
                         <>
                             <Popover.Button>
-                                <Indicator size={20} label="0" color={stGreen.DEFAULT} >
+                                <Indicator size={20} label={<CartCounter/>} color={stGreen.DEFAULT} >
                                     {!open &&
                                         <ShoppingCartSimple size={32} />
                                     }

@@ -1,6 +1,5 @@
 import {BreadCrumbs, Footer, Heading} from "tp-kit/components";
 import ProductList from "@/components/productList";
-import Image from "next/image";
 
 import { PRODUCTS_CATEGORY_DATA } from "tp-kit/data";
 import {Metadata} from "next";
