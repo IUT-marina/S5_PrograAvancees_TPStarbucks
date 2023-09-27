@@ -5,7 +5,7 @@ import {CartData, ProductLineData} from "@/types";
 import {ProductData} from "tp-kit/types";
 import { create } from 'zustand'
 
-const useCart = create<CartData>(function() {
+export const useCart = create<CartData>(function() {
     return {
         lines: []
     }
@@ -39,7 +39,7 @@ export function updateLine(line: ProductLineData) {
     useCart.setState((panier: CartData) => {
         let produitDejaPresent = panier.lines.find(prdt => prdt.product.name == line.product.name);
         if (produitDejaPresent != undefined)
-            produitDejaPresent.quantity += 1;
+            produitDejaPresent.quantity = line.quantity;
         return {...panier, lines:[...panier.lines]};
     })
 }

@@ -7,6 +7,7 @@ import {useMemo, useState} from "react";
 import {ProductFiltersResult} from "@/types";
 import Link from "next/link";
 import {ProductsCategoryData} from "tp-kit/types";
+import {addLine} from "@/hooks/use-cart";
 
 
 // Ptit Tips pour Marina : Affichage du contenu de la page :
@@ -53,7 +54,9 @@ export default function ProductList({showFilters, showCategoryName, categoriesTo
                             {product =>
                                 <ProductCardLayout
                                     key={product.id}
-                                    button={<Button fullWidth variant="ghost">Ajouter au panier</Button>}
+                                    button={<Button fullWidth variant="ghost" onClick={() => addLine(product)}>
+                                            Ajouter au panier
+                                            </Button>}
                                     product={product}
                                 />}
                         </ProductGridLayout>
