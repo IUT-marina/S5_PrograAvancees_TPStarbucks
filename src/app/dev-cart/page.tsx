@@ -1,10 +1,10 @@
 "use client";
 
 import { PRODUCTS_CATEGORY_DATA } from "tp-kit/data";
-import {Button, ProductCardLayout, ProductCartLine, SectionContainer} from "tp-kit/components";
-import {useCart, addLine, removeLine, updateLine, clearCart, computeCartTotal} from "@/hooks/use-cart";
+import {ProductCardLayout, SectionContainer} from "tp-kit/components";
 import Cart from "@/components/cart";
 import CartCounter from "@/components/cartCounter";
+import AddToCartButton from "@/components/addToCartButton";
 const products = PRODUCTS_CATEGORY_DATA[0].products.slice(0, 3);
 
 export default function DevCartPage() {
@@ -20,7 +20,7 @@ export default function DevCartPage() {
                     <ProductCardLayout
                         key={product.id}
                         product={product}
-                        button={<Button variant={"ghost"} fullWidth onClick={() => addLine(product)}>Ajouter au panier</Button>}
+                        button={<AddToCartButton product={product} />}
                     />
                 ))}
             </section>

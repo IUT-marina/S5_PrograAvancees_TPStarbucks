@@ -4,6 +4,7 @@
 import {CartData, ProductLineData} from "@/types";
 import {ProductData} from "tp-kit/types";
 import { create } from 'zustand'
+import {wait} from "tp-kit/utils/wait";
 
 export const useCart = create<CartData>(function() {
     return {
@@ -18,7 +19,8 @@ export const useCart = create<CartData>(function() {
  *
  * @param product
  */
-export function addLine(product: ProductData) {
+export async function addLine(product: ProductData) {
+    await wait(300);
     useCart.setState((panier: CartData) => {
         let produitDejaPresent = panier.lines.find(prdt => prdt.product.name == product.name);
         if (produitDejaPresent != undefined)
