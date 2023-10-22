@@ -1,4 +1,4 @@
-import {BreadCrumbs, Footer, Heading} from "tp-kit/components";
+import {BreadCrumbs, Footer} from "tp-kit/components";
 import ProductList from "@/components/productList";
 
 import { PRODUCTS_CATEGORY_DATA } from "tp-kit/data";
@@ -20,7 +20,6 @@ export default function Home() {
           ]}></BreadCrumbs>
           <ProductList categoriesToDisplay={categories} showFilters={true} />
 
-          <Footer />
     </main>
   )
 }

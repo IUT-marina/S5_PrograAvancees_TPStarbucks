@@ -1,12 +1,10 @@
-import {BreadCrumbs, Button, Footer, Heading, ProductRating, SectionContainer} from "tp-kit/components";
+import {BreadCrumbs, ProductRating, SectionContainer} from "tp-kit/components";
 import Image from "next/image";
 import ProductList from "@/components/productList";
 
 import { PRODUCTS_CATEGORY_DATA } from "tp-kit/data";
-import {ProductData, ProductsCategoryData} from "tp-kit/types";
 import {undefined} from "zod";
 import {notFound} from "next/navigation";
-import {Stars} from "tp-kit/components/products/product-rating.stories";
 import ProductAttributesTable from "@/components/productAttributesTable";
 import {ProductAttribute} from "@/types";
 import AddToCartButton from "@/components/addToCartButton";

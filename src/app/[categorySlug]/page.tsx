@@ -1,9 +1,7 @@
-import {BreadCrumbs, Footer, Heading} from "tp-kit/components";
-import Image from "next/image";
+import {BreadCrumbs} from "tp-kit/components";
 import ProductList from "@/components/productList";
 
 import { PRODUCTS_CATEGORY_DATA } from "tp-kit/data";
-import {Metadata} from "next";
 const categories = PRODUCTS_CATEGORY_DATA;
 
 export type NextPageProps<T = Record<string, string>> = {
@@ -44,7 +42,6 @@ export default function Page({params} : NextPageProps<{categorySlug:string}>) {
             ]}></BreadCrumbs>
             <ProductList categoriesToDisplay={category} />
 
-            <Footer />
         </main>
     )
 }
