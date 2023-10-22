@@ -4,10 +4,12 @@
 import {CartData, ProductLineData} from "@/types";
 import {ProductData} from "tp-kit/types";
 import { create } from 'zustand'
+import {wait} from "tp-kit/utils/wait";
 
-const useCart = create<CartData>(function() {
+export const useCart = create<CartData>(function() {
     return {
-        lines: []
+        lines: [],
+        count: 0
     }
 })
 
@@ -17,10 +19,18 @@ const useCart = create<CartData>(function() {
  *
  * @param product
  */
-export function addLine(product: ProductData) {
-    /*useCart.setState((previousState: CartData) => {
-        previousState.lines.find(prdt => prdt.product.name ==)
-    })*/
+export async function addLine(product: ProductData) {
+    await wait(300);
+    useCart.setState((panier: CartData) => {
+        let produitDejaPresent = panier.lines.find(prdt => prdt.product.name == product.name);
+        if (produitDejaPresent != undefined)
+            produitDejaPresent.quantity += 1;
+        else {
+            const newProduct: ProductLineData = {product: product, quantity: 1}
+            panier.lines.push(newProduct);
+        }
+        return {...panier, lines:[...panier.lines], count: (panier.lines.length)};
+    })
 }
 
 /**
@@ -28,7 +38,14 @@ export function addLine(product: ProductData) {
  *
  * @param line
  */
-export function updateLine(line: ProductLineData) {}
+export function updateLine(line: ProductLineData) {
+    useCart.setState((panier: CartData) => {
+        let produitDejaPresent = panier.lines.find(prdt => prdt.product.name == line.product.name);
+        if (produitDejaPresent != undefined)
+            produitDejaPresent.quantity = line.quantity;
+        return {...panier, lines:[...panier.lines]};
+    })
+}
 
 /**
  * Supprime la ligne produit du panier
@@ -36,19 +53,33 @@ export function updateLine(line: ProductLineData) {}
  * @param productId
  * @returns
  */
-export function removeLine(productId: number) {}
+export function removeLine(productId: number) {
+    useCart.setState((panier: CartData) => {
+        return {...panier, lines: panier.lines.filter(prdt => prdt.product.id != productId), count: (panier.lines.length - 1)};
+    })
+}
 
 /**
  * Vide le contenu du panier actuel
  */
-export function clearCart() {}
+export function clearCart() {
+    useCart.setState((panier: CartData) => {
+        return {...panier, lines:[]};
+    })
+}
 
 /**
  * Calcule le total d'une ligne du panier
  */
-export function computeLineSubTotal(line: ProductLineData): number {}
+export function computeLineSubTotal(line: ProductLineData): number {
+    return line.product.price * line.quantity;
+}
 
 /**
  * Calcule le total du panier
  */
-export function computeCartTotal(lines: ProductLineData[]): number {}
+export function computeCartTotal(lines: ProductLineData[]): number {
+    let sum = 0
+    lines.forEach((line) => sum += computeLineSubTotal(line));
+    return sum;
+}

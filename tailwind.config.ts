@@ -37,7 +37,8 @@ const config: Config = {
           950: "#181614",
         },
         vertsb: "#002F16",
-        cream: "#FCF9F4"
+        cream: "#FCF9F4",
+        grayPicture: "#F1F1F1"
       },
     },
   },
