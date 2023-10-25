@@ -1,8 +1,8 @@
 import {BreadCrumbs} from "tp-kit/components";
 import ProductList from "@/components/productList";
-
-import { PRODUCTS_CATEGORY_DATA } from "tp-kit/data";
-const categories = PRODUCTS_CATEGORY_DATA;
+import prisma from "@/utils/prisma";
+import {notFound} from "next/navigation";
+import { cache } from 'react'
 
 export type NextPageProps<T = Record<string, string>> = {
     /**
@@ -18,15 +18,32 @@ export type NextPageProps<T = Record<string, string>> = {
 };
 
 export async function generateMetadata({params} : NextPageProps<{categorySlug:string}>) {
+    const category = await getCategory(params.categorySlug);
+
     return {
-        title: params.categorySlug,
+        title: category.slug,
         description: "Trouvez votre inspiration avec un vaste choix de boissons Starbucks parmi nos produits " + params.categorySlug ,
     }
 }
 
-export default function Page({params} : NextPageProps<{categorySlug:string}>) {
+const getCategory = cache(async (categorySlug: string) => {
+    console.log("getCategory");
+    const category = await prisma.productCategory.findUnique({
+        where: {
+            slug: categorySlug
+        },
+        include: {
+            products: {}
+        }
+    });
 
-    const category = categories.filter(c => c.slug === params.categorySlug)
+    if (!category)
+        notFound();
+
+    return category;
+})
+export default async function Page({params} : NextPageProps<{categorySlug:string}>) {
+    const category = await getCategory(params.categorySlug);
 
     return (
         <main>
@@ -36,11 +53,11 @@ export default function Page({params} : NextPageProps<{categorySlug:string}>) {
                     "url": "./"
                 },
                 {
-                    "label": category[0].name,
+                    "label": category.name,
                     "url": "#"
                 }
             ]}></BreadCrumbs>
-            <ProductList categoriesToDisplay={category} />
+            <ProductList categoriesToDisplay={[category]} />
 
         </main>
     )
