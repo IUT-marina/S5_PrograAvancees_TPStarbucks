@@ -5,19 +5,21 @@ const prisma = new PrismaClient()
 async function main() {
     for (const productCategories of PRODUCTS_CATEGORY_DATA) {
 
-        /*const productCategoriesToCreate = await prisma.productCategory.create({
-            data: {
+        const productCategoriesToCreate = await prisma.productCategory.upsert({
+            where: {id: productCategories.id},
+            update: {},
+            create: {
                 id: productCategories.id,
                 slug: productCategories.slug,
                 name: productCategories.name
             },
-        })*/
+        })
 
         const products = productCategories.products;
         for (const product of products) {
             const productsToCreate = await prisma.product.upsert({
                 where: {id: product.id},
-                update: { desc: product.desc },
+                update: { },
                 create: {
                     id: product.id,
                     slug: product.slug,
