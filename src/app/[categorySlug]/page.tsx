@@ -4,6 +4,19 @@ import prisma from "@/utils/prisma";
 import {notFound} from "next/navigation";
 import { cache } from 'react'
 
+const getCategory = cache(async (categorySlug: string) => {
+    const category = await prisma.productCategory.findUnique({
+        where: {
+            slug: categorySlug
+        },
+        include: {
+            products: {}
+        }
+    });
+
+    return category;
+})
+
 export type NextPageProps<T = Record<string, string>> = {
     /**
      * The path parameters received
@@ -19,6 +32,8 @@ export type NextPageProps<T = Record<string, string>> = {
 
 export async function generateMetadata({params} : NextPageProps<{categorySlug:string}>) {
     const category = await getCategory(params.categorySlug);
+    if (!category)
+        return {}
 
     return {
         title: category.slug,
@@ -26,24 +41,11 @@ export async function generateMetadata({params} : NextPageProps<{categorySlug:st
     }
 }
 
-const getCategory = cache(async (categorySlug: string) => {
-    console.log("getCategory");
-    const category = await prisma.productCategory.findUnique({
-        where: {
-            slug: categorySlug
-        },
-        include: {
-            products: {}
-        }
-    });
 
-    if (!category)
-        notFound();
-
-    return category;
-})
 export default async function Page({params} : NextPageProps<{categorySlug:string}>) {
     const category = await getCategory(params.categorySlug);
+    if (!category)
+        notFound()
 
     return (
         <main>

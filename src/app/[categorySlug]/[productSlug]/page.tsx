@@ -8,9 +8,33 @@ import {notFound} from "next/navigation";
 import ProductAttributesTable from "@/components/productAttributesTable";
 import {ProductAttribute} from "@/types";
 import AddToCartButton from "@/components/addToCartButton";
+import {cache} from "react";
+import prisma from "@/utils/prisma";
 
-const categories = PRODUCTS_CATEGORY_DATA;
 
+const getProduct = cache(async (productSlug: string) => {
+
+    const product = await prisma.product.findUnique({
+        where: {
+            slug: productSlug
+        },
+        include: {
+          category: {
+              include: {
+                  products: {
+                      where: {
+                          NOT: [{
+                              slug: productSlug
+                          }]
+                      }
+                  }
+              }
+          }
+        }
+    });
+
+    return product;
+})
 
 export type NextPageProps<T = Record<string, string>> = {
     /**
@@ -28,24 +52,22 @@ export type NextPageProps<T = Record<string, string>> = {
 
 export async function generateMetadata({params} : NextPageProps<{productSlug:string, categorySlug: string}>) {
 
-    const category = categories.find(cat => cat.slug === params.categorySlug);
-    const product = category?.products.find(prod => prod.slug === params.productSlug);
-
-    if(!category || !product) notFound();
+    const product = await getProduct(params.productSlug);
+    if(!product)
+       return {}
 
     return {
-        title: params.productSlug,
+        title: product.slug,
         description: product.desc ? ("Succombez pour notre " + product.name + " et commandez-le sur notre site !") : product.desc,
     }
 }
 
 
-export default function Page({params} : NextPageProps<{productSlug:string, categorySlug: string}>) {
+export default async function Page({params} : NextPageProps<{productSlug:string, categorySlug: string}>) {
 
-    const category = categories.find(cat => cat.slug === params.categorySlug);
-    const product = category?.products.find(prod => prod.slug === params.productSlug);
-
-    if(!category || !product) notFound();
+    const product = await getProduct(params.productSlug);
+    if (!product)
+        notFound();
 
     const attributes: ProductAttribute[] = [
         { label: "Intensité", rating: 3 },
@@ -64,8 +86,8 @@ export default function Page({params} : NextPageProps<{productSlug:string, categ
                     "url": "/"
                 },
                 {
-                    "label": category.name,
-                    "url": "/" + category.slug
+                    "label": product.category.name,
+                    "url": "/" + product.category.slug
                 },
                 {
                     "label": product.name,
@@ -112,7 +134,7 @@ export default function Page({params} : NextPageProps<{productSlug:string, categ
             </SectionContainer>
 
 
-            <ProductList categoriesToDisplay={[category]} showCategoryName={false}/>
+            <ProductList categoriesToDisplay={[product.category]} showCategoryName={false}/>
 
         </main>
     )
