@@ -1,14 +1,14 @@
 "use client";
 
 import {filterProducts} from "@/utils/filter-products";
-import {BreadCrumbs, Button, ProductCardLayout, ProductGridLayout, SectionContainer} from "tp-kit/components";
+import {ProductCardLayout, ProductGridLayout, SectionContainer} from "tp-kit/components";
 import ProductFilters from "@/components/productFilters";
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {ProductFiltersResult} from "@/types";
 import Link from "next/link";
 import {ProductsCategoryData} from "tp-kit/types";
-import {addLine} from "@/hooks/use-cart";
 import AddToCartButton from "@/components/addToCartButton";
+import fetch from "node-fetch";
 
 
 // Ptit Tips pour Marina : Affichage du contenu de la page :
@@ -25,20 +25,41 @@ export default function ProductList({showFilters, showCategoryName, categoriesTo
     showCategoryName = showCategoryName === undefined ? true : showCategoryName;
 
     const [filters, setFilters] = useState(undefined as ProductFiltersResult | undefined);
-    let categoriesToRender = useMemo(() =>
-        filterProducts(categoriesToDisplay, filters), [categoriesToDisplay, filters]);
+    //let categoriesToRender = useMemo(() =>
+    //    filterProducts(categoriesToDisplay, filters), [categoriesToDisplay, filters]);
+
+
+    async function getCategories() {
+        //let url = new URL("https://localhost:3000/api/product-filters/");
+        if (filters == undefined)
+            return;
+        let searchParams = new URLSearchParams();
+        searchParams.append('search', filters.search ?? '');
+        for (const cat of filters.categoriesSlugs) {
+            searchParams.append('cat', cat);
+        }
+        const response = await fetch('/api/product-filters?' + searchParams.toString());
+        setCategories((await response.json())['categories']);
+    }
+
+    const [categories, setCategories] = useState(categoriesToDisplay as ProductsCategoryData[]);
+    useEffect( () => {
+        if (filters === undefined)
+            return;
+        getCategories().then(r => {});
+    }, [filters]);
 
     return (
         <div className={"flex flex-row bg-grayPicture"} >
             { showFilters &&
                 <SectionContainer className={"bg-grayPicture"}>
-                    <ProductFilters categories={categoriesToDisplay} onChange={setFilters} />
+                    <ProductFilters categories={categories} onChange={setFilters} />
                 </SectionContainer>
             }
 
             <SectionContainer className="flex flex-1 bg-grayPicture min-h-screen flex-col justify-between p-5">
 
-                {categoriesToRender.map(category =>
+                {categories.map(category =>
                     <SectionContainer key={category.id} className={"bg-grayPicture"}>
                         { showCategoryName &&
                             <Link href={category.slug}>

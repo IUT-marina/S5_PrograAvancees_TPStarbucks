@@ -1,7 +1,6 @@
-import {BreadCrumbs, Footer} from "tp-kit/components";
+import {BreadCrumbs} from "tp-kit/components";
 import ProductList from "@/components/productList";
 
-import {PRODUCTS_CATEGORY_DATA} from "tp-kit/data";
 import {Metadata} from "next";
 import prisma from "@/utils/prisma";
 
