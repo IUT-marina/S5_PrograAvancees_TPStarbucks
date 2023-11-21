@@ -1,6 +1,3 @@
-
-
-
 import {CartData, ProductLineData} from "@/types";
 import {ProductData} from "tp-kit/types";
 import { create } from 'zustand'
@@ -24,9 +21,9 @@ export async function addLine(product: ProductData) {
     useCart.setState((panier: CartData) => {
         let produitDejaPresent = panier.lines.find(prdt => prdt.product.name == product.name);
         if (produitDejaPresent != undefined)
-            produitDejaPresent.quantity += 1;
+            produitDejaPresent.qty += 1;
         else {
-            const newProduct: ProductLineData = {product: product, quantity: 1}
+            const newProduct: ProductLineData = {product: product, qty: 1}
             panier.lines.push(newProduct);
         }
         return {...panier, lines:[...panier.lines], count: (panier.lines.length)};
@@ -42,7 +39,7 @@ export function updateLine(line: ProductLineData) {
     useCart.setState((panier: CartData) => {
         let produitDejaPresent = panier.lines.find(prdt => prdt.product.name == line.product.name);
         if (produitDejaPresent != undefined)
-            produitDejaPresent.quantity = line.quantity;
+            produitDejaPresent.qty = line.qty;
         return {...panier, lines:[...panier.lines]};
     })
 }
@@ -72,7 +69,7 @@ export function clearCart() {
  * Calcule le total d'une ligne du panier
  */
 export function computeLineSubTotal(line: ProductLineData): number {
-    return line.product.price * line.quantity;
+    return line.product.price * line.qty;
 }
 
 /**

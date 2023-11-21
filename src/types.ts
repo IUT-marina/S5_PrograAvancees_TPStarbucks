@@ -12,7 +12,7 @@ export interface ProductAttribute {
 
 export interface ProductLineData {
     product: ProductData
-    quantity: number
+    qty: number
 }
 
 export interface CartData {

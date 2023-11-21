@@ -2,11 +2,16 @@
 
 import {Button, ProductCartLine, ProductImage} from "tp-kit/components";
 import {clearCart, computeCartTotal, removeLine, updateLine, useCart} from "@/hooks/use-cart";
-import Image from "next/image";
+import submit from "@/actions/create-orders";
 
 export default function Cart() {
 
-    const lines = useCart(state => state.lines)
+    const lines = useCart(state => state.lines);
+
+    const newOrder = async () => {
+        await submit(lines);
+        clearCart();
+    };
 
     return (
         <div className={"absolute w-2/6 right-1 top-20 bg-grayPicture rounded-lg shadow-2xl flex flex-col justify-between p-5 gap-y-10"}>
@@ -25,9 +30,9 @@ export default function Cart() {
                         <ProductCartLine
                             key={line.product.id}
                             onDelete={() => removeLine(line.product.id)}
-                            onQtyChange={(quantity) => {line.quantity = quantity; updateLine(line)}}
+                            onQtyChange={(quantity) => {line.qty = quantity; updateLine(line)}}
                             product={line.product}
-                            qty={line.quantity}
+                            qty={line.qty}
                             className={"flex-1"}
                         />
                     </div> ))
@@ -37,7 +42,7 @@ export default function Cart() {
                         <span className={"font-bold"}>Total</span>
                         <span className={"font-bold"}>{(computeCartTotal(lines)).toFixed(2)}€</span>
                     </div>
-                    <Button className={"border-none bg-stGreen"} fullWidth>Commander</Button>
+                    <Button className={"border-none bg-stGreen"} onClick={newOrder} fullWidth>Commander</Button>
                 </div>
 
         </div>
