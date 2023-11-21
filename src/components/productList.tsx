@@ -1,9 +1,8 @@
 "use client";
 
-import {filterProducts} from "@/utils/filter-products";
 import {ProductCardLayout, ProductGridLayout, SectionContainer} from "tp-kit/components";
 import ProductFilters from "@/components/productFilters";
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 import {ProductFiltersResult} from "@/types";
 import Link from "next/link";
 import {ProductsCategoryData} from "tp-kit/types";
@@ -25,12 +24,9 @@ export default function ProductList({showFilters, showCategoryName, categoriesTo
     showCategoryName = showCategoryName === undefined ? true : showCategoryName;
 
     const [filters, setFilters] = useState(undefined as ProductFiltersResult | undefined);
-    //let categoriesToRender = useMemo(() =>
-    //    filterProducts(categoriesToDisplay, filters), [categoriesToDisplay, filters]);
 
 
     async function getCategories() {
-        //let url = new URL("https://localhost:3000/api/product-filters/");
         if (filters == undefined)
             return;
         let searchParams = new URLSearchParams();

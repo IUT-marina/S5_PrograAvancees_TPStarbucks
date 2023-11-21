@@ -27,4 +27,30 @@ model Product {
   price Float
   category ProductCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId Int
+  orderLines OrderLine[]
+}
+
+enum OrderStatusEnum {
+    IN_PROGRESS
+    COMPLETED
+}
+
+model OrderLine {
+    id Int @id @default(autoincrement())
+    order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+    orderId Int
+    product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+    productId Int
+    qty Int @default(1)
+    subtotal Float
+    @@unique([orderId, productId])
+}
+
+model Order {
+    id Int @id @default(autoincrement())
+    createdAt DateTime
+    completedAt DateTime?
+    status OrderStatusEnum @default(IN_PROGRESS)
+    lines OrderLine[]
+    total Float
 }
