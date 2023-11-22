@@ -6,7 +6,7 @@ import { PRODUCTS_CATEGORY_DATA } from "tp-kit/data";
 import {undefined} from "zod";
 import {notFound} from "next/navigation";
 import ProductAttributesTable from "@/components/productAttributesTable";
-import {ProductAttribute} from "@/types";
+import {NextPageProps, ProductAttribute} from "@/types";
 import AddToCartButton from "@/components/addToCartButton";
 import {cache} from "react";
 import prisma from "@/utils/prisma";
@@ -35,20 +35,6 @@ const getProduct = cache(async (productSlug: string) => {
 
     return product;
 })
-
-export type NextPageProps<T = Record<string, string>> = {
-    /**
-     * The path parameters received
-     * e.g. : page/[slug] --> params.slug
-     */
-    params: T,
-    /**
-     * The HTTP query parameters received
-     * e.g. : my-page?page=1 --> searchParams.page (= '1')
-     */
-    searchParams: { [key: string]: string | string[] | undefined }
-};
-
 
 export async function generateMetadata({params} : NextPageProps<{productSlug:string, categorySlug: string}>) {
 

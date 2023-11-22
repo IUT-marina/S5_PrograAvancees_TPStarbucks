@@ -20,7 +20,7 @@ export default async function Home() {
                 {
                     "label": "Accueil",
                     "url": "/"
-                }
+                },
             ]}></BreadCrumbs>
             <ProductList categoriesToDisplay={categories} showFilters={true}/>
 

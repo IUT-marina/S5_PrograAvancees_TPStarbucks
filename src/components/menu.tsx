@@ -6,6 +6,7 @@ import {Indicator} from "@mantine/core";
 import {Popover} from "@headlessui/react";
 import Cart from "@/components/cart";
 import CartCounter from "@/components/cartCounter";
+import Link from "next/link";
 const {stGreen} = require('tp-kit/tailwind/colors')
 
 export default function Menu() {
@@ -16,6 +17,7 @@ export default function Menu() {
                 <Popover>
                     {({open}) => (
                         <>
+                            <Link href={'/mon-compte/'} >Mon compte</Link>
                             <Popover.Button>
                                 <Indicator size={20} label={<CartCounter/>} color={stGreen.DEFAULT} >
                                     {!open &&
