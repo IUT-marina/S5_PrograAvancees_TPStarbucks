@@ -4,7 +4,8 @@ import {z} from 'zod';
 import {useForm, zodResolver} from "@mantine/form";
 import {Box, PasswordInput, TextInput} from "@mantine/core";
 import Link from "next/link";
-import {Button} from "tp-kit/components";
+import {Button, NoticeMessage} from "tp-kit/components";
+import React, {useState} from "react";
 
 export default function Page() {
 
@@ -23,11 +24,26 @@ export default function Page() {
         },
     });
 
+    const [successNotice, setSuccessNotice] = useState(false);
+    const [errorNotice, setErrorNotice] = useState(false);
+
     return (
         <div className={"flex justify-center"}>
-            <Box miw={450} mx="auto" className={"flex flex-col justify-center bg-white shadow-xl p-6 m-14 gap-y-2 rounded-lg"} >
+            <Box miw={450} mx="auto" className={"flex flex-col w-1/3 justify-center bg-white shadow-xl p-6 m-14 gap-y-2 rounded-lg"} >
                 <h3 className={"uppercase font-medium"}>Inscription</h3>
-                <form className={"flex flex-col gap-y-2 mt-5 mb-5"} onSubmit={form.onSubmit((values) => console.log(values))}>
+
+                <form className={"flex flex-col gap-y-2 mt-5 mb-5"} onSubmit={
+                    form.onSubmit((values) => {
+                        console.log(values);
+                        setSuccessNotice(true);
+                    })
+                }>
+                    {successNotice&&
+                        <NoticeMessage type={"success"} message={'Votre inscription a bien été prise en compte. Validez votre adresse email pour vous connecter.'}></NoticeMessage>
+                    }
+                    {!errorNotice&&
+                        <NoticeMessage type={"error"} message={'Error message.'}></NoticeMessage>
+                    }
                     <TextInput
                         withAsterisk
                         label="Nom"
