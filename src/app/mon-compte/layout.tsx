@@ -1,5 +1,6 @@
 import prisma from "@/utils/prisma";
 import OrderTable from "@/components/OrderTable";
+import {SectionContainer} from "tp-kit/components";
 
 export default async function MonCompteLayout({children}: { children: React.ReactNode }) {
 
@@ -10,9 +11,9 @@ export default async function MonCompteLayout({children}: { children: React.Reac
     });
 
     return (
-        <>
+        <SectionContainer>
             <OrderTable orders={orders}></OrderTable>
             {children}
-        </>
+        </SectionContainer>
 )
 }

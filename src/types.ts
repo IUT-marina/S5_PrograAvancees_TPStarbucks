@@ -1,5 +1,4 @@
 import {ProductData} from "tp-kit/types";
-import {undefined} from "zod";
 
 export interface ProductFiltersResult {
     categoriesSlugs: string[],
@@ -19,6 +18,12 @@ export interface ProductLineData {
 export interface CartData {
     lines: ProductLineData[],
     count : number
+}
+
+declare module "@supabase/supabase-js" {
+    export interface UserMetadata {
+        name?: string
+    }
 }
 
 export type NextPageProps<T = Record<string, string>> = {

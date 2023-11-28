@@ -10,16 +10,15 @@ export default function Order({order}: { order: OrderData }) {
     return (
         <Dialog open={isOpen} onClose={() => setIsOpen(false)}
             className={"absolute w-2/6 right-1 top-20 bg-grayPicture rounded-lg shadow-2xl flex flex-col justify-between p-5 gap-y-10"}>
-                <Dialog.Panel>
-                    <Dialog.Title>{order.id}</Dialog.Title>
-                <Dialog.Description>
+            <Dialog.Panel>
+                <Dialog.Title>{order.id}</Dialog.Title>
+                <Dialog.Description as = "div">
                     <p>Voici le détail de votre commande.</p>
                 </Dialog.Description>
 
                 <OrderDetailsLayout order={order} />
-
-                <button onClick={() => setIsOpen(false)}>Fermer</button>
             </Dialog.Panel>
         </Dialog>
     )
 }
+/*<button onClick={() => setIsOpen(false)}>Fermer</button>*/

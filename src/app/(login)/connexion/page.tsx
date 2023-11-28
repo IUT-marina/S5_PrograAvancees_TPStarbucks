@@ -26,7 +26,11 @@ export default function Page() {
         <div className={"flex justify-center"}>
             <Box miw={400} mx="auto" className={"flex flex-col justify-center bg-white shadow-xl p-6 m-24 gap-y-2 rounded-lg"} >
                 <h3 className={"uppercase font-medium"}>Connexion</h3>
-                <form className={"flex flex-col gap-y-2 mt-5 mb-5"} onSubmit={form.onSubmit((values) => console.log(values))}>
+                <form className={"flex flex-col gap-y-2 mt-5 mb-5"} onSubmit={
+                    form.onSubmit((values) => {
+                        console.log(values)
+                    })
+                }>
                     <TextInput
                         withAsterisk
                         label="Adresse email"

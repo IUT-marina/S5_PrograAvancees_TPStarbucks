@@ -6,10 +6,13 @@ import {Box, PasswordInput, TextInput} from "@mantine/core";
 import Link from "next/link";
 import {Button, NoticeMessage, useZodI18n} from "tp-kit/components";
 import React, {useState} from "react";
+import {createClientComponentClient} from "@supabase/auth-helpers-nextjs";
 
 export default function Page() {
 
     useZodI18n(z);
+
+    const supabase = createClientComponentClient();
 
     const schema = z.object({
         name: z.string().min(2),
@@ -34,16 +37,28 @@ export default function Page() {
             <Box miw={450} mx="auto" className={"flex flex-col w-1/3 justify-center bg-white shadow-xl p-6 m-14 gap-y-2 rounded-lg"} >
                 <h3 className={"uppercase font-medium"}>Inscription</h3>
                 <form className={"flex flex-col gap-y-2 mt-5 mb-5"} onSubmit={
-                    form.onSubmit((values) => {
+                    form.onSubmit(async (values) => {
                         console.log(values);
-                        setSuccessNotice(true);
+
+                        const re = await supabase.auth.signUp({
+                            email: values.email,
+                            password: values.password,
+                            options: {
+                                emailRedirectTo: `${location.origin}/auth/callback`,
+                            },
+                        })
+
+                        if (re != undefined)
+                            setErrorNotice(true)
+                        else
+                            setSuccessNotice(true);
                     })
                 }>
                     {successNotice&&
                         <NoticeMessage type={"success"} message={'Votre inscription a bien été prise en compte. Validez votre adresse email pour vous connecter.'}></NoticeMessage>
                     }
                     {errorNotice&&
-                        <NoticeMessage type={"error"} message={'Error message.'}></NoticeMessage>
+                        <NoticeMessage type={"error"} message={'Une erreur est survenue. Vérifiez vos informations.'}></NoticeMessage>
                     }
                     <TextInput
                         withAsterisk
