@@ -4,15 +4,17 @@ import {z} from 'zod';
 import {useForm, zodResolver} from "@mantine/form";
 import {Box, PasswordInput, TextInput} from "@mantine/core";
 import Link from "next/link";
-import {Button, NoticeMessage} from "tp-kit/components";
+import {Button, NoticeMessage, useZodI18n} from "tp-kit/components";
 import React, {useState} from "react";
 
 export default function Page() {
 
+    useZodI18n(z);
+
     const schema = z.object({
-        name: z.string().min(2, { message: 'Votre nom doit contenir au moins 2 caractères.' }),
-        email: z.string().email({ message: 'Invalid email' }),
-        password: z.string().min(6, { message: 'Votre mot de passe doit contenir au moins 6 caractères.' }),
+        name: z.string().min(2),
+        email: z.string().email(),
+        password: z.string().min(6),
     });
 
     const form = useForm({
@@ -31,7 +33,6 @@ export default function Page() {
         <div className={"flex justify-center"}>
             <Box miw={450} mx="auto" className={"flex flex-col w-1/3 justify-center bg-white shadow-xl p-6 m-14 gap-y-2 rounded-lg"} >
                 <h3 className={"uppercase font-medium"}>Inscription</h3>
-
                 <form className={"flex flex-col gap-y-2 mt-5 mb-5"} onSubmit={
                     form.onSubmit((values) => {
                         console.log(values);
@@ -41,12 +42,13 @@ export default function Page() {
                     {successNotice&&
                         <NoticeMessage type={"success"} message={'Votre inscription a bien été prise en compte. Validez votre adresse email pour vous connecter.'}></NoticeMessage>
                     }
-                    {!errorNotice&&
+                    {errorNotice&&
                         <NoticeMessage type={"error"} message={'Error message.'}></NoticeMessage>
                     }
                     <TextInput
                         withAsterisk
                         label="Nom"
+                        description={"Le nom qui sera utilisé pour vos commandes"}
                         placeholder="Maud zarella"
                         {...form.getInputProps('name')}
                     />
