@@ -2,7 +2,7 @@
 
 import {z} from 'zod';
 import {useForm, zodResolver} from "@mantine/form";
-import {Box, Group, PasswordInput, TextInput} from "@mantine/core";
+import {Box, PasswordInput, TextInput} from "@mantine/core";
 import Link from "next/link";
 import {Button} from "tp-kit/components";
 
