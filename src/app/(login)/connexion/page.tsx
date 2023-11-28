@@ -4,14 +4,21 @@ import {z} from 'zod';
 import {useForm, zodResolver} from "@mantine/form";
 import {Box, PasswordInput, TextInput} from "@mantine/core";
 import Link from "next/link";
-import {Button} from "tp-kit/components";
+import {Button, NoticeMessage, useZodI18n} from "tp-kit/components";
+import {createClientComponentClient} from "@supabase/auth-helpers-nextjs";
+import React, {useState} from "react";
+import {useRouter} from "next/navigation";
 
 export default function Page() {
 
+    useZodI18n(z);
+
+    const router = useRouter();
+    const supabase = createClientComponentClient();
+
     const schema = z.object({
-        name: z.string().min(2, { message: 'Votre nom doit contenir au moins 2 caractères.' }),
-        email: z.string().email({ message: 'Invalid email' }),
-        password: z.string().min(6, { message: 'Votre mot de passe doit contenir au moins 6 caractères.' }),
+        email: z.string().email(),
+        password: z.string().min(6),
     });
 
     const form = useForm({
@@ -22,15 +29,36 @@ export default function Page() {
         },
     });
 
+    const [successNotice, setSuccessNotice] = useState(false);
+    const [errorNotice, setErrorNotice] = useState(false);
+
     return (
         <div className={"flex justify-center"}>
             <Box miw={400} mx="auto" className={"flex flex-col justify-center bg-white shadow-xl p-6 m-24 gap-y-2 rounded-lg"} >
                 <h3 className={"uppercase font-medium"}>Connexion</h3>
                 <form className={"flex flex-col gap-y-2 mt-5 mb-5"} onSubmit={
-                    form.onSubmit((values) => {
-                        console.log(values)
+                    form.onSubmit(async (values) => {
+                        console.log(values);
+
+                        const re = await supabase.auth.signInWithPassword({
+                            email: values.email,
+                            password: values.password
+                        })
+
+                        if (re.error != undefined)
+                            setErrorNotice(true);
+                        else {
+                            setSuccessNotice(true);
+                            router.refresh();
+                        }
                     })
                 }>
+                    {successNotice&&
+                        <NoticeMessage type={"success"} message={''}></NoticeMessage>
+                    }
+                    {errorNotice&&
+                        <NoticeMessage type={"error"} message={'Une erreur est survenue. Vérifiez vos informations.'}></NoticeMessage>
+                    }
                     <TextInput
                         withAsterisk
                         label="Adresse email"

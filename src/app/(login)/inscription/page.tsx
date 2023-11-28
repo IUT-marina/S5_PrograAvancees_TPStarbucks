@@ -7,11 +7,13 @@ import Link from "next/link";
 import {Button, NoticeMessage, useZodI18n} from "tp-kit/components";
 import React, {useState} from "react";
 import {createClientComponentClient} from "@supabase/auth-helpers-nextjs";
+import {useRouter} from "next/navigation";
 
 export default function Page() {
 
     useZodI18n(z);
 
+    const router = useRouter();
     const supabase = createClientComponentClient();
 
     const schema = z.object({
@@ -40,15 +42,22 @@ export default function Page() {
                     form.onSubmit(async (values) => {
                         console.log(values);
 
-                        const re = await supabase.auth.signUp({
-                            email: values.email,
-                            password: values.password,
-                            options: {
-                                emailRedirectTo: `${location.origin}/auth/callback`,
-                            },
-                        })
+                        const re = await supabase.auth.signUp(
+                            {
+                                email: values.email,
+                                password: values.password,
+                                options: {
+                                    data: {
+                                        name: values.name,
+                                    },
+                                    emailRedirectTo: `${location.origin}/auth/callback`,
+                                }
+                            }
+                        )
 
-                        if (re != undefined)
+                        router.refresh()
+
+                        if (re.error != undefined)
                             setErrorNotice(true)
                         else
                             setSuccessNotice(true);
@@ -83,7 +92,7 @@ export default function Page() {
 
                     <Button className={"mt-3"} type="submit">Inscription</Button>
                 </form>
-                <Link className={"flex justify-center text text-brand"} href={'/inscription'}>Déjà un compte ? Se connecter</Link>
+                <Link className={"flex justify-center text text-brand"} href={'/connexion'}>Déjà un compte ? Se connecter</Link>
             </Box>
         </div>
 

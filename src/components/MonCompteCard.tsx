@@ -1,23 +1,23 @@
 "use client";
 
-import {useRouter} from "next/navigation";
+import {redirect, useRouter} from "next/navigation";
 import {Button, SectionContainer} from "tp-kit/components";
 import {createClientComponentClient, User} from "@supabase/auth-helpers-nextjs";
 
 export default function MonCompteCard({user}: {user: User | null}) {
-    let router = useRouter();
+    const router = useRouter();
 
     const supabase = createClientComponentClient();
 
-    if (user === null) {
-        console.log(user)
-        //redirect('/connexion');
-    }
+    if (user === null)
+        redirect('/connexion');
 
     async function logOut() {
         await supabase.auth.signOut();
         router.refresh();
     }
+
+    console.log(user.user_metadata.name);
 
     return (
         <SectionContainer>
