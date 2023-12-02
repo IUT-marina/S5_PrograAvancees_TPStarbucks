@@ -53,4 +53,5 @@ model Order {
     status OrderStatusEnum @default(IN_PROGRESS)
     lines OrderLine[]
     total Float
+    userId String @db.Uuid()
 }
