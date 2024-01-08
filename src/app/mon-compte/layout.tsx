@@ -21,7 +21,7 @@ export default async function MonCompteLayout({children}: { children: React.Reac
         <SectionContainer>
             <div className={"flex flex-row justify-around"}>
                 <MonCompteCard user={user}></MonCompteCard>
-                <SectionContainer className={"flex flex-col justify-center bg-white shadow-xl m-3 rounded-lg"}>
+                <SectionContainer className={"flex flex-col justify-center bg-white shadow-xl m-3 rounded-lg w-80"}>
                     <h3 className={"uppercase font-medium pb-3"}>Mes commandes</h3>
                     <OrderTable orders={orders}></OrderTable>
                 </SectionContainer>

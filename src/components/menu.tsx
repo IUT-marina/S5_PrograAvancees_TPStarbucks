@@ -16,7 +16,7 @@ export default function Menu() {
             <div className={"flex justify-end items-center"}>
                 <Popover>
                     {({open}) => (
-                        <>
+                        <div className={"flex gap-7 items-center"}>
                             <Link href={'/mon-compte/'} >Mon compte</Link>
                             <Popover.Button>
                                 <Indicator size={20} label={<CartCounter/>} color={stGreen.DEFAULT} >
@@ -33,7 +33,7 @@ export default function Menu() {
                             <Popover.Panel>
                                 <Cart></Cart>
                             </Popover.Panel>
-                        </>
+                        </div>
                     )}
                 </Popover>
             </div>}

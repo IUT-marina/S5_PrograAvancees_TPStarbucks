@@ -1,16 +1,20 @@
 "use client";
 
-import {Button, ProductCartLine, ProductImage} from "tp-kit/components";
+import {Button, NoticeMessage, ProductCartLine, ProductImage} from "tp-kit/components";
 import {clearCart, computeCartTotal, removeLine, updateLine, useCart} from "@/hooks/use-cart";
-import submit from "@/actions/create-orders";
+import createOrder from "@/actions/create-orders";
+import {useState} from "react";
 
 export default function Cart() {
 
     const lines = useCart(state => state.lines);
-
+    const [errorMsg, setErrorMsg] = useState('');
     const newOrder = async () => {
-        await submit(lines);
-        clearCart();
+        const order = await createOrder(lines);
+        if (order.success)
+            clearCart();
+        else if (order.error != null)
+            setErrorMsg(order.error);
     };
 
     return (
@@ -42,7 +46,13 @@ export default function Cart() {
                         <span className={"font-bold"}>Total</span>
                         <span className={"font-bold"}>{(computeCartTotal(lines)).toFixed(2)}€</span>
                     </div>
-                    <Button className={"border-none bg-stGreen"} onClick={newOrder} fullWidth>Commander</Button>
+                    <div>
+                        <Button className={"border-none bg-stGreen"} onClick={newOrder} fullWidth>Commander</Button>
+                        {errorMsg != null && errorMsg != '' &&
+                            <NoticeMessage type={"error"} message={errorMsg}></NoticeMessage>
+                        }
+                    </div>
+
                 </div>
 
         </div>

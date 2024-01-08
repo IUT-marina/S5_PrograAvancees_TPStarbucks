@@ -21,7 +21,7 @@ export default function MonCompteCard({user}: {user: User | null}) {
 
     return (
         <SectionContainer>
-            <div className={"flex flex-col justify-center bg-white shadow-xl p-5 m-1 w-60 rounded-lg gap-3"}>
+            <div className={"flex flex-col justify-center bg-white shadow-xl p-8 m-1 rounded-lg gap-3"}>
                 <h3 className={"uppercase font-medium"}>Mon compte</h3>
                 <div className={"flex flex-col gap-3"}>
                     <p>Bonjour, {user?.user_metadata.name}</p>
