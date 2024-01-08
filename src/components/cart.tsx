@@ -18,7 +18,7 @@ export default function Cart() {
     };
 
     return (
-        <div className={"absolute w-2/6 right-1 top-20 bg-grayPicture rounded-lg shadow-2xl flex flex-col justify-between p-5 gap-y-10"}>
+        <div className={"absolute w-2/6 right-1 top-20 bg-grayPicture rounded-lg shadow-2xl flex flex-col justify-between p-5 gap-y-10 max-h-[80vh] overflow-y-scroll"}>
                 <div className={"flex justify-between items-center"}>
                     <span className={"font-bold uppercase"}>Mon panier</span>
                     <Button className={"border-none text-xs text-gray-500"} variant={"ghost"} onClick={clearCart}>Vider le panier</Button>

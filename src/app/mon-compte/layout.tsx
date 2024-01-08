@@ -8,14 +8,17 @@ import MonCompteCard from "@/components/MonCompteCard";
 
 export default async function MonCompteLayout({children}: { children: React.ReactNode }) {
 
+    const supabase = createServerComponentClient({cookies});
+    const user = await getUser(supabase);
+
     const orders = await prisma.order.findMany({
+        where: {
+            userId: user?.id
+        },
         include: {
             lines: {}
         }
     });
-
-    const supabase = createServerComponentClient({cookies});
-    const user = await getUser(supabase);
 
     return (
         <SectionContainer>
