@@ -40,7 +40,6 @@ export default function Page() {
                 <h3 className={"uppercase font-medium"}>Inscription</h3>
                 <form className={"flex flex-col gap-y-2 mt-5 mb-5"} onSubmit={
                     form.onSubmit(async (values) => {
-                        console.log(values);
 
                         const re = await supabase.auth.signUp(
                             {

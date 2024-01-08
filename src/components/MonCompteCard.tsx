@@ -17,8 +17,6 @@ export default function MonCompteCard({user}: {user: User | null}) {
         router.refresh();
     }
 
-    console.log(user.user_metadata.name);
-
     return (
         <SectionContainer>
             <div className={"flex flex-col justify-center bg-white shadow-xl p-8 m-1 rounded-lg gap-3"}>

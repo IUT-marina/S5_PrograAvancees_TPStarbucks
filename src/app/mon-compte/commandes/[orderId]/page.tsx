@@ -5,7 +5,6 @@ import Order from "@/app/mon-compte/commandes/[orderId]/order";
 
 export default async function Page({params}: NextPageProps<{ orderId: number }>) {
     const orderId = Number(params.orderId);
-    console.log()
     if (orderId === undefined)
         notFound();
 
