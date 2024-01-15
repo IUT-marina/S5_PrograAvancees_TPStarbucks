@@ -1,4 +1,5 @@
 import {NextRequest, NextResponse} from "next/server";
+import {revalidatePath} from "next/cache";
 
 export async function POST(request: NextRequest) {
     const api_key_env = process.env.SUPABASE_WEBHOOK_KEY;
@@ -8,6 +9,10 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({error: '"API-Key" header is missing'}, {status: 401});
     if (api_key_headers != api_key_env)
         return NextResponse.json({error: 'API-Key is not valid'}, {status: 403});
+
+    console.log("rebuilding posts...");
+    revalidatePath('[categorySlug]/[productSlug]', 'page');
+
 
     return NextResponse.json({
         revalidated: true,
