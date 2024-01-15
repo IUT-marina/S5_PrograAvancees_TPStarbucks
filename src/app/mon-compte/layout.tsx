@@ -33,3 +33,5 @@ export default async function MonCompteLayout({children}: { children: React.Reac
         </SectionContainer>
     )
 }
+
+export const dynamic = "force-dynamic";

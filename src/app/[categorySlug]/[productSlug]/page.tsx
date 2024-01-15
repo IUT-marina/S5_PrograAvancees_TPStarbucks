@@ -1,15 +1,13 @@
 import {BreadCrumbs, ProductRating, SectionContainer} from "tp-kit/components";
 import Image from "next/image";
 import ProductList from "@/components/productList";
-
-import { PRODUCTS_CATEGORY_DATA } from "tp-kit/data";
-import {undefined} from "zod";
 import {notFound} from "next/navigation";
 import ProductAttributesTable from "@/components/productAttributesTable";
 import {NextPageProps, ProductAttribute} from "@/types";
 import AddToCartButton from "@/components/addToCartButton";
 import {cache} from "react";
 import prisma from "@/utils/prisma";
+import {ProductsCategoryData} from "tp-kit/types";
 
 
 const getProduct = cache(async (productSlug: string) => {
@@ -46,6 +44,25 @@ export async function generateMetadata({params} : NextPageProps<{productSlug:str
         title: product.slug,
         description: product.desc ? ("Succombez pour notre " + product.name + " et commandez-le sur notre site !") : product.desc,
     }
+}
+
+export async function generateStaticParams() {
+
+   const categories: ProductsCategoryData[] = await prisma.productCategory.findMany({
+       include: { products: {} }
+   });
+
+   const routesParams = [];
+   for (let category of categories) {
+       for (let product of category.products) {
+            routesParams.push({
+                categorySlug: category.slug,
+                productSlug: product.slug
+            })
+       }
+   }
+
+   return routesParams;
 }
 
 

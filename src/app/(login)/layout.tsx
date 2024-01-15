@@ -18,3 +18,5 @@ export default async function LoginLayout({children}: {
         <ZodI18nProvider>{children}</ZodI18nProvider>
     )
 }
+
+export const dynamic = "force-dynamic";
