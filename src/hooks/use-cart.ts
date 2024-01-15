@@ -61,7 +61,7 @@ export function removeLine(productId: number) {
  */
 export function clearCart() {
     useCart.setState((panier: CartData) => {
-        return {...panier, lines:[]};
+        return {...panier, lines:[], count: 0};
     })
 }
 
