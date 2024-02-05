@@ -19,17 +19,17 @@ export default function RealTimeOrderDetails( {order}: {order: OrderData}) {
                     event: 'UPDATE',
                     schema: 'public',
                     table: 'Order',
-                    filter: 'id=eq' + newOrder.id
+                    filter: 'id=eq.' + newOrder.id
                 },
                 (payload) => {
+                    console.log('update sur order');
                     const values = payload.new;
                     setNewOrder(actualOrder => {
                         return {...actualOrder, ...values};
                     });
                 }
             )
-            .subscribe();
-        
+            .subscribe((status) => console.log(status));
         return () => { 
             channel.unsubscribe().then(r => {});
         };
